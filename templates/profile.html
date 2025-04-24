@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - Time Capsule Chatbot</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fas fa-clock-rotate-left"></i>
+                    <h2>Time Capsule</h2>
+                </div>
+                <a href="{{ url_for('index') }}" class="back-btn">
+                    <i class="fas fa-arrow-left"></i> Back to Chat
+                </a>
+            </div>
+            
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <div class="user-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="user-name">{{ session.username }}</div>
+                </div>
+                <div class="sidebar-actions">
+                    <a href="{{ url_for('profile') }}" class="sidebar-action-btn active" title="Profile">
+                        <i class="fas fa-user-cog"></i>
+                    </a>
+                    <a href="{{ url_for('logout') }}" class="sidebar-action-btn" title="Logout">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="profile-container">
+                <h1><i class="fas fa-user-circle"></i> Your Profile</h1>
+                
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="flash-message {{ category }}">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+                
+                <div class="profile-card">
+                    <div class="profile-header">
+                        <div class="profile-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="profile-info">
+                            <h2>{{ user.username }}</h2>
+                            <p>{{ user.email }}</p>
+                            <p class="joined-date">Joined on {{ user.created_at.strftime('%B %d, %Y') }}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="profile-stats">
+                        <div class="stat-item">
+                            <i class="fas fa-comments"></i>
+                            <div class="stat-details">
+                                <h3>Total Conversations</h3>
+                                <p id="total-chats">Loading...</p>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-clock"></i>
+                            <div class="stat-details">
+                                <h3>Time Saved</h3>
+                                <p>Countless hours of reflection</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="profile-actions">
+                        <button id="change-password-btn" class="profile-btn">
+                            <i class="fas fa-key"></i> Change Password
+                        </button>
+                        <button id="export-data-btn" class="profile-btn">
+                            <i class="fas fa-download"></i> Export Your Data
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="usage-section">
+                    <h2>Your Usage</h2>
+                    <div class="usage-chart">
+                        <div class="chart-container">
+                            <canvas id="usage-chart"></canvas>
+                        </div>
+                        <div class="chart-legend">
+                            <div class="legend-item">
+                                <div class="color-box past-color"></div>
+                                <span>Past Self Conversations</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="color-box future-color"></div>
+                                <span>Future Self Conversations</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="color-box debate-color"></div>
+                                <span>Time-Travel Debates</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{{ url_for('static', filename='js/profile.js') }}"></script>
+</body>
+</html>
