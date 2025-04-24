@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time Capsule Chatbot</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i class="fas fa-clock-rotate-left"></i>
+                <h1>Time Capsule Chatbot</h1>
+            </div>
+            <p>Chat with past or future versions of yourself</p>
+        </header>
+
+        <div id="api-status-container" class="api-status-container">
+            <!-- API status will be shown here -->
+        </div>
+
+        <div class="mode-selector">
+            <button id="past-mode" class="mode-btn active">
+                <i class="fas fa-history"></i> Past Self
+            </button>
+            <button id="future-mode" class="mode-btn">
+                <i class="fas fa-rocket"></i> Future Self
+            </button>
+            <button id="debate-mode" class="mode-btn">
+                <i class="fas fa-balance-scale"></i> Time-Travel Debate
+            </button>
+        </div>
+
+        <div id="past-mode-container" class="mode-container active">
+            <div class="input-section">
+                <h2><i class="fas fa-history"></i> Past Self Mode</h2>
+                <div class="form-group">
+                    <label for="past-context">Your past context (journal entries, social media posts, etc.):</label>
+                    <div class="textarea-with-upload">
+                        <textarea id="past-context" rows="5" placeholder="E.g., From my 2018 journal: 'I hate corporate jobs! I'll be a digital nomad by 25.'"></textarea>
+                        <div class="upload-btn-wrapper">
+                            <button class="upload-btn"><i class="fas fa-file-upload"></i> Upload</button>
+                            <input type="file" id="past-file-upload" accept=".txt,.md,.pdf" />
+                        </div>
+                    </div>
+                </div>
+                <div class="chat-interface">
+                    <div id="past-chat-messages" class="chat-messages"></div>
+                    <div class="chat-input">
+                        <input type="text" id="past-message-input" placeholder="Ask your past self something...">
+                        <button id="past-send-btn"><i class="fas fa-paper-plane"></i> Send</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="future-mode-container" class="mode-container">
+            <div class="input-section">
+                <h2><i class="fas fa-rocket"></i> Future Self Mode</h2>
+                <div class="form-group">
+                    <label for="future-context">Your future goals and aspirations:</label>
+                    <div class="textarea-with-upload">
+                        <textarea id="future-context" rows="5" placeholder="E.g., I want to be a doctor by 2030, living in a coastal city with a family."></textarea>
+                        <div class="upload-btn-wrapper">
+                            <button class="upload-btn"><i class="fas fa-file-upload"></i> Upload</button>
+                            <input type="file" id="future-file-upload" accept=".txt,.md,.pdf" />
+                        </div>
+                    </div>
+                </div>
+                <div class="chat-interface">
+                    <div id="future-chat-messages" class="chat-messages"></div>
+                    <div class="chat-input">
+                        <input type="text" id="future-message-input" placeholder="Ask your future self something...">
+                        <button id="future-send-btn"><i class="fas fa-paper-plane"></i> Send</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="debate-mode-container" class="mode-container">
+            <div class="input-section">
+                <h2><i class="fas fa-balance-scale"></i> Time-Travel Debate</h2>
+                <div class="form-group">
+                    <label for="debate-past-context">Your past context:</label>
+                    <div class="textarea-with-upload">
+                        <textarea id="debate-past-context" rows="3" placeholder="Context for your past self"></textarea>
+                        <div class="upload-btn-wrapper">
+                            <button class="upload-btn"><i class="fas fa-file-upload"></i> Upload</button>
+                            <input type="file" id="debate-past-upload" accept=".txt,.md,.pdf" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="debate-future-context">Your future aspirations:</label>
+                    <div class="textarea-with-upload">
+                        <textarea id="debate-future-context" rows="3" placeholder="Context for your future self"></textarea>
+                        <div class="upload-btn-wrapper">
+                            <button class="upload-btn"><i class="fas fa-file-upload"></i> Upload</button>
+                            <input type="file" id="debate-future-upload" accept=".txt,.md,.pdf" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="debate-topic">Debate topic:</label>
+                    <input type="text" id="debate-topic" placeholder="E.g., Should I quit my current job?">
+                </div>
+                <button id="generate-debate-btn"><i class="fas fa-play"></i> Generate Debate</button>
+                <div id="debate-result" class="debate-result"></div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Time Capsule Chatbot &copy; 2023 | Powered by Gemini AI</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
