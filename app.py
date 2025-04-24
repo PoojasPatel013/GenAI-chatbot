@@ -21,10 +21,10 @@ app.secret_key = secrets.token_hex(16)  # Generate a secure secret key for sessi
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
 
 # MongoDB connection
-MONGO_URI = os.environ.get("MONGO_URI", "mongodb://localhost:27017/")
+MONGO_URI = os.environ.get("MONGO_URI", "mongodb://localhost:27017/genai")
 client = MongoClient(MONGO_URI)
-db = client["time_capsule_db"]
-users_collection = db["users"]
+db = client["genai"]
+users_collection = db["user"]
 chats_collection = db["chats"]
 messages_collection = db["messages"]
 
